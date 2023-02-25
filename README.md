@@ -55,7 +55,7 @@ if($ckpath -eq $null) {
    $null = [System.Reflection.Assembly]::LoadFrom($ckpath)
    $sock = New-Object Chilkat.Socket
    $null = $sock.UnlockComponent("whatever")
-   $targets = "10.103.128.3", "10.222.35.250"
+   $targets = "10.2.2.2", "10.3.3.3"
    $ports = 21, 22, 23, 80, 443, 445, 389, 3389
    $mswait = 250
    foreach($t in $targets) {
