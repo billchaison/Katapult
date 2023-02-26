@@ -2,7 +2,7 @@
 
 Example of exploiting the Chilkat .NET assembly for Red Team exercises using Powershell.  This assembly is loaded with functionality and is bundled with many commercial software products.
 
-This example searches the user's MyDocuments folder and uploads file names matching *password* to an external web server.
+**This example searches the user's MyDocuments folder and uploads file names matching *password* to an external web server.**
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
@@ -36,7 +36,7 @@ if($ckpath -eq $null) {
 }
 ```
 
-This example performs a TCP port scan.
+**This example performs a TCP port scan.**
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
@@ -72,7 +72,7 @@ if($ckpath -eq $null) {
 }
 ```
 
-This example creates an SSH TCP tunnel for pivoting.
+**This example creates an SSH TCP tunnel for pivoting.**
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
@@ -117,7 +117,7 @@ if($ckpath -eq $null) {
 }
 ```
 
-To list other functions you may wish to use (open the DLL with dnSpy orILSpy to inspect).
+**To list other functions you may wish to use (open the DLL with dnSpy orILSpy to inspect).**
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
