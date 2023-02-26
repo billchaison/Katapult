@@ -1,6 +1,6 @@
 # Katapult
 
-Example of exploiting the Chilkat .NET assembly for Red Team exercises using Powershell.  This assembly is loaded with functionality and is bundled in with many commercial software products.
+Example of exploiting the Chilkat .NET assembly for Red Team exercises using Powershell.  This assembly is loaded with functionality and is bundled with many commercial software products.
 
 This example searches the user's MyDocuments folder and uploads file names matching *password* to an external web server.
 
