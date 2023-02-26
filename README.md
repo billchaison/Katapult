@@ -72,6 +72,51 @@ if($ckpath -eq $null) {
 }
 ```
 
+This example creates an SSH TCP tunnel for pivoting.
+
+```powershell
+$ErrorActionPreference = 'silentlycontinue'
+$ckdll = Resolve-Path -Path "C:\Program Files\*\ChilkatDotNet*dll"
+if($ckdll.Path -eq $null) {
+   $ckdll = Resolve-Path -Path "C:\Program Files\*\*\ChilkatDotNet*dll"
+   if($ckdll.Path -ne $null) {
+      $ckpath = $ckdll.Path
+   }
+} else {
+   $ckpath = $ckdll.Path
+}
+if($ckpath -eq $null) {
+   Write-Host "Chilkat DLL not found"
+} else {
+   $null = [System.Reflection.Assembly]::LoadFrom($ckpath)
+   $sshtun = New-Object Chilkat.SshTunnel
+   $null = $sshtun.UnlockComponent("whatever")
+   $sshhost = "192.168.1.242" # The host to SSH to
+   $sshport = 22 # The port to SSH to
+   $sshuser = "root" # The user name to login with 
+   $sshpass = "P@55w0rd4r**t" # The password to login with
+   $tunhost = "127.0.0.1" # The host you will access through the tunnel
+   $tunport = 80 # The port you will access through the tunnel
+   $locaddr = "0.0.0.0" # The IP address on this Windows host you will connect to
+   $locport = 8080 # The port on this Windows host you will connect to
+   $sshtun.ListenBindIpAddress = $locaddr
+   $sshtun.DestHostname = $tunhost
+   $sshtun.DestPort = $tunport
+   $null = $sshtun.Connect($sshhost, $sshport)
+   $null = $sshtun.AuthenticatePw($sshuser, $sshpass)
+   if($sshtun.IsSshConnected() -eq $false) {
+      Write-Host "SSH logon failed"
+   } else {
+      $null = $sshtun.BeginAccepting($locport)
+      Write-Host "Connect to $locaddr port $locport to access tunneled service $tunhost port $tunport"
+      Write-Host "Press any key to close the tunnel and exit"
+      $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+      $null = $sshtun.CloseTunnel($true)
+      exit
+   }
+}
+```
+
 To list other functions you may wish to use.
 
 ```powershell
