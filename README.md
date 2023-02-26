@@ -117,7 +117,7 @@ if($ckpath -eq $null) {
 }
 ```
 
-**To list other functions you may wish to use (open the DLL with dnSpy orILSpy to inspect).**
+**To list other functions you may wish to use (open the DLL with dnSpy or ILSpy to inspect).**
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
