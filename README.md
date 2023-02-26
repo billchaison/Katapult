@@ -1,6 +1,6 @@
 # Katapult
 
-Example of exploiting the Chilkat .NET assembly for Red Team exercises using Powershell.
+Example of exploiting the Chilkat .NET assembly for Red Team exercises using Powershell.  This assembly is loaded with functionality and is bundled in with many commercial software products.
 
 This example searches the user's MyDocuments folder and uploads file names matching *password* to an external web server.
 
@@ -117,7 +117,7 @@ if($ckpath -eq $null) {
 }
 ```
 
-To list other functions you may wish to use.
+To list other functions you may wish to use (open the DLL with dnSpy orILSpy to inspect).
 
 ```powershell
 $ErrorActionPreference = 'silentlycontinue'
