@@ -32,10 +32,11 @@ if($ckpath -eq $null) {
       if($r -eq $true) {
          Write-Host "$($f.Count) files uploaded"
       } else {
-         if($up.ResponseStatus -ge 200 -or $up.ResponseStatus -le 299) {
+         if($up.ResponseStatus -ge 200 -and $up.ResponseStatus -le 299) {
             Write-Host "$($f.Count) files uploaded"
          } else {
             Write-Host "File upload failed"
+            Write-Host $up.LastErrorText
          }
       }
    } else {
